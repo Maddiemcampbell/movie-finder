@@ -1,25 +1,31 @@
 const defaultState = {
-    movieSearch: '',
-    title: ''
+  movieSearch: '',
+  movies: [],
 }
 
 export default function searchReducer(state = defaultState, action) {
-    const { type, payload } = action;
+  const {
+    type,
+    payload
+  } = action;
+
+  switch (type) {
+    case 'MOVIE_INPUT':{
+      return {
+        ...state,
+        movieSearch: payload.movieSearch
+      };
+    }
+
+    case 'GET_MOVIE_FULFILLED': {
+      return {
+        ...state,
+        movies: payload.data.Search,
+      }
+    };
     
-    switch (type) {
-      case 'UPDATE_SEARCH_VALUE':
-        return {
-          ...state,
-          movieSearch: payload.movieSearch
-        };
-  
-        case 'GET_MOVIE_FULFILLED': {
-          return {
-            ...state,
-            title: payload.data.Search.Title
-            }
-          };
-        }
-  
+  default: {
     return state;
+  }
+  }
 }
